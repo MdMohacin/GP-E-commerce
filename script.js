@@ -115,9 +115,12 @@ newsletterForm.addEventListener('submit', (e) => {
 const cartToggle = document.getElementById('cart-toggle');
 const cartSidebar = document.getElementById('cart-sidebar');
 cartToggle.addEventListener('click', function() {
-    cartSidebar.classList.add('active');
+    cartSidebarActive()
 });
 
+function cartSidebarActive(){
+    cartSidebar.classList.add('active');
+}
 
 
 // Sample product data
@@ -259,6 +262,8 @@ let cart = [];
 
 // DOM elements
 const productGrid = document.getElementById('product-grid');
+const Allprodact = document.querySelector(".Allprodact");
+const recommendationProdact = document.querySelector(".recommendationprodact");
 const cartItemsContainer = document.getElementById('cart-items');
 const cartSummaryContainer = document.getElementById('cart-summary');
 const closeCart = document.getElementById('close-cart');
@@ -272,6 +277,7 @@ const modalTitle = document.getElementById('modal-title');
 const authSubmit = document.getElementById('auth-submit');
 const nameGroup = document.getElementById('name-group');
 const cancelBtn = document.getElementById('cancel-btn');
+const searchBox = document.getElementById('searchBox');
 
 
 
@@ -282,6 +288,73 @@ function init() {
     setupEventListeners();
 }
 
+let filtered=[];
+searchBox.addEventListener('input', () => {
+    const query = searchBox.value.toLowerCase();
+
+    filtered = products.filter(p => 
+        p.title.toLowerCase().includes(query)
+    );
+    console.log(query)
+    renderProducts(filtered.length ? filtered : [{title:"No results", price:""}]);
+    searchUIupdate();
+    console.log(renderProducts)
+
+    console.log(filtered)
+
+
+});
+    
+let sectionTitle = document.querySelector(".section-title")
+function searchUIupdate(){
+    sectionTitle.innerHTML='Search Item'
+    productGrid.innerHTML = '';
+    if(filtered.length === 0){
+        productGrid.innerHTML=`<h2 style="text-align: center; width:100%">No Results</h2>`;
+    }
+
+    filtered.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        
+        
+        productCard.innerHTML = `
+            <div class="product-img" data-id="${product.id}">
+                <img src="${product.image}" alt="${product.title}">
+                <span class="discount-badge">-${product.discount}%</span>
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">${product.title}</h3>
+                <div class="product-price">
+                    <span class="current-price">BT ${product.price}</span>
+                    <span class="original-price">BT ${product.originalPrice}</span>
+                </div>
+                <div class="product-rating">
+                    <div class="stars">
+                        ${generateStars(product.rating)}
+                    </div>
+                    <span class="rating-count">(${product.reviewCount})</span>
+                    <div class="Favorite">
+                        <div class="wishlist"><i class="far fa-heart"></i></div>                    
+                        <p id="FavoriteNumber">(12)</p>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="add-to-cart" data-id="${product.id}" onclick="cartSidebarActive()">By New</button>
+                    <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+                </div>
+            </div>
+        `;
+        
+        productGrid.appendChild(productCard);
+    });
+}
+
+
+
+
+
+
 // Render products
 function renderProducts() {
     productGrid.innerHTML = '';
@@ -289,6 +362,75 @@ function renderProducts() {
     products.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
+        
+        
+        productCard.innerHTML = `
+            <div class="product-img" data-id="${product.id}">
+                <img src="${product.image}" alt="${product.title}">
+                <span class="discount-badge">-${product.discount}%</span>
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">${product.title}</h3>
+                <div class="product-price">
+                    <span class="current-price">BT ${product.price}</span>
+                    <span class="original-price">BT ${product.originalPrice}</span>
+                </div>
+                <div class="product-rating">
+                    <div class="stars">
+                        ${generateStars(product.rating)}
+                    </div>
+                    <span class="rating-count">(${product.reviewCount})</span>
+                    <div class="Favorite">
+                        <div class="wishlist"><i class="far fa-heart"></i></div>                    
+                        <p id="FavoriteNumber">(12)</p>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="add-to-cart" data-id="${product.id}" onclick="cartSidebarActive()">By New</button>
+                    <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+                </div>
+            </div>
+        `;
+        
+        productGrid.appendChild(productCard);
+    });
+
+    products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.id=product.id;
+
+        
+        productCard.innerHTML = `
+            <div class="product-img" data-id="${product.id}">
+                <img src="${product.image}" alt="${product.title}">
+                <span class="discount-badge">-${product.discount}%</span>
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">${product.title}</h3>
+                <div class="product-price">
+                    <span class="current-price">BT ${product.price}</span>
+                    <span class="original-price">BT ${product.originalPrice}</span>
+                </div>
+                <div class="product-rating">
+                    <div class="stars">
+                        ${generateStars(product.rating)}
+                    </div>
+                    <span class="rating-count">(${product.reviewCount})</span>
+                    <div class="Favorite">
+                        <div class="wishlist"><i class="far fa-heart"></i></div>                    
+                        <p id="FavoriteNumber">(12)</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        Allprodact.appendChild(productCard);
+    });
+    
+    products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.id=product.id;
         
         productCard.innerHTML = `
             <div class="product-img">
@@ -311,21 +453,35 @@ function renderProducts() {
                         <p id="FavoriteNumber">(12)</p>
                     </div>
                 </div>
-                <div class="buttons">
-                    <button class="add-to-cart" data-id="${product.id}">By New</button>
-                    <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
-                </div>
             </div>
         `;
-        
-        productGrid.appendChild(productCard);
+        recommendationProdact.appendChild(productCard);
     });
-    
     // Add event listeners to add to cart buttons
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', function() {
             const productId = parseInt(this.getAttribute('data-id'));
             addToCart(productId);
+            console.log(productId)
+        });
+    });
+
+        // Add event listeners to add to cart buttons
+    document.querySelectorAll('.product-img').forEach(productcard => {
+        productcard.addEventListener('click', function() {
+            const ViewProdactId = parseInt(this.getAttribute('data-id'));
+            ViewProdact(ViewProdactId);
+        });
+    });
+    ``
+}
+
+function cartButton(){
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = parseInt(this.getAttribute('data-id'));
+            addToCart(productId);
+            console.log(productId)
         });
     });
 }
@@ -371,77 +527,212 @@ function addToCart(productId) {
         updateCartUI();
         showNotification(`${product.title} added to cart!`);
     }
+
+}
+let productDetails;
+function ViewProdact(ViewProdactId) {
+    productDetails = products.find(p => p.id === ViewProdactId);
+    viewProdactDetails()
 }
 
 // Update cart UI
 function updateCartUI() {
     // Update cart count
+
     const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
     cartCount.textContent = totalItems;
     
-    // Update cart items
-    if (cart.length === 0) {
-        cartItemsContainer.innerHTML = `
-            <div class="empty-cart">
-                <i class="fas fa-shopping-cart"></i>
-                <h3>Your cart is empty</h3>
-                <p>Add some items to get started</p>
+
+    cartItemsContainer.innerHTML = '';
+    
+    cart.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        
+        cartItem.innerHTML = `
+            <img src="${item.image}" alt="${item.title}" class="cart-item-img">
+            <div class="cart-item-info">
+                <h4 class="cart-item-title">${item.title}</h4>
+                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                <div class="cart-item-quantity">
+                    <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
+                    <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                    <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
+                    <button class="quantity-btn remove-item" data-id="${item.id}" style="margin-left: 10px; background-color: var(--danger-color); color: white;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
             </div>
         `;
-        cartSummaryContainer.innerHTML = '';
-    } else {
-        cartItemsContainer.innerHTML = '';
         
-        cart.forEach(item => {
-            const cartItem = document.createElement('div');
-            cartItem.className = 'cart-item';
-            
-            cartItem.innerHTML = `
-                <img src="${item.image}" alt="${item.title}" class="cart-item-img">
-                <div class="cart-item-info">
-                    <h4 class="cart-item-title">${item.title}</h4>
-                    <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-                    <div class="cart-item-quantity">
-                        <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
-                        <input type="text" class="quantity-input" value="${item.quantity}" readonly>
-                        <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
-                        <button class="quantity-btn remove-item" data-id="${item.id}" style="margin-left: 10px; background-color: var(--danger-color); color: white;">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            cartItemsContainer.appendChild(cartItem);
+        cartItemsContainer.appendChild(cartItem);
+        
+    });
+    
+    // Add event listeners to quantity buttons
+    document.querySelectorAll('.decrease-quantity').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = parseInt(this.getAttribute('data-id'));
+            decreaseQuantity(productId);
         });
-        
-        // Add event listeners to quantity buttons
-        document.querySelectorAll('.decrease-quantity').forEach(button => {
-            button.addEventListener('click', function() {
-                const productId = parseInt(this.getAttribute('data-id'));
-                decreaseQuantity(productId);
-            });
+    });
+    
+    document.querySelectorAll('.increase-quantity').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = parseInt(this.getAttribute('data-id'));
+            increaseQuantity(productId);
         });
-        
-        document.querySelectorAll('.increase-quantity').forEach(button => {
-            button.addEventListener('click', function() {
-                const productId = parseInt(this.getAttribute('data-id'));
-                increaseQuantity(productId);
-            });
+    });
+    
+    document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = parseInt(this.getAttribute('data-id'));
+            removeFromCart(productId);
         });
-        
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', function() {
-                const productId = parseInt(this.getAttribute('data-id'));
-                removeFromCart(productId);
-            });
-        });
-        
-        // Update cart summary
-        updateCartSummary();
-    }
+    });
+    
+    // Update cart summary
+    updateCartSummary();
 }
 
+
+function viewProdactDetails(){
+    document.querySelector("#mainContainer").style.display="none";
+    document.querySelector(".ProdactDetailsSection").style.display="block";
+    let ProdactDetailsSection = document.querySelector(".ProdactDetailsSection");
+    ProdactDetailsSection.innerHTML="";
+
+    const ProdactDetails = document.createElement("div");
+    ProdactDetails.className='ProdactDetails';
+    ProdactDetails.innerHTML=`
+    <div class="AllImg">
+        <img src="${productDetails.image}" alt="${productDetails.title}">
+        <div class="courseImg">
+            <img src="${productDetails.image}" alt="${productDetails.title}">
+            <img src="${productDetails.image}" alt="${productDetails.title}">
+            <img src="${productDetails.image}" alt="${productDetails.title}">
+        </div>
+    </div>
+    <div class="productTitel">
+        <h4>${productDetails.title}</h4>
+        <div class="share">
+            <div>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <div>
+                <i class="fa-solid fa-share-nodes"></i>
+                <i class="fa-regular fa-heart"></i>
+            </div>
+        </div>
+        <p>Brand: <a href="#">No BrandMore Computer Accessories from No Brand</a></p>
+        <div class="taka">
+            <h2>BT ${productDetails.price} </h2>
+            <p>BT1 ${productDetails.originalPrice}</p>
+            <span>-${productDetails.discount}%</span>
+        </div>
+        <hr>
+        <div class="buyBtnColar">
+            <p>Color Family <span>Black</span></p>
+            <div>
+                <img src="${productDetails.image}" alt="${productDetails.title}">
+            </div>
+            <div>
+                <p>Quantity</p>
+                <div><i class="fa-solid fa-minus"></i><p>1</p><i class="fa-solid fa-plus"></i></div>
+            </div>
+            <div>
+                <button class="add-to-cart" data-id="${productDetails.id}" onclick="cartSidebarActive()">Buy Now</button>
+                <button class="add-to-cart" data-id="${productDetails.id}" >Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    `
+    ProdactDetailsSection.appendChild(ProdactDetails);
+
+    const productDetails1 = document.createElement("div");
+    productDetails1.className='productDetails';
+    productDetails1.innerHTML=`
+    <p>Product details of ${productDetails.title}</p>
+    <div>
+        <ul>
+            <li>BT5.0 connection,stable signal,not occupy charging port or headphone port,convenient to use.</li>
+            <li>Built-in quick reporting shortcut,report player unknown's battleground in real time.</li>
+        </ul>
+        <ul>
+            <li>Press mouse middle wheel to control the mouse cursor,all operations in the game can be achieved. Support one-key continuous .</li>
+            <li>Adopt cloud key mapping technology,default key mapping auto-match,support a variety of phone models.</li>
+            <li>For senior players,you can customize keys via APP to fit your habit.</li>
+        </ul>
+    </div>
+    <div>
+        <img src="${productDetails.image}" alt="${productDetails.title}">
+        <video src="https://youtu.be/AhYnDYzPUbM?si=HGjasIWMcn7ct1O-" o></video>
+    </div>
+    `
+    ProdactDetailsSection.appendChild(productDetails1);
+
+    const RatingsReviews = document.createElement("div");
+    RatingsReviews.className='RatingsReviews';
+    RatingsReviews.innerHTML=`
+    <p>Ratings & Reviews of ${productDetails.title}</p>
+    <div class="Ratings">
+        <div>
+            <div>
+                <h1>${productDetails.rating}</h1>
+                <h3>/5</h3>
+            </div>
+            <div>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        <p>${productDetails.reviewCount} Ratings</p>
+        </div>
+    </div>
+    <div class="colam">
+        <p>Product Reviews</p>
+        <p>Sort:Relevance</p>
+        <p>Filter:All star</p>
+    </div>
+    <div class="comment">
+        <div><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <div class="UserId">
+            <i class="fa-solid fa-user"></i>
+            <p>SK A.</p>
+            <span>Verified Purchase</span>
+        </div>
+        <h4>আমি এইটা বিগত চারদিন ইউজ করছি এখনো কোন সমস্যা পাই নাই আশা করি কোন সমস্যা হবে না 🥰🥰 এটা অনেক ভালো সার্ভিস দেয় 🥰👍</h4>
+        <div>
+           <img src="${productDetails.image}" alt="${productDetails.title}">
+           <img src="${productDetails.image}" alt="${productDetails.title}">
+        </div>
+        <p class="ColorFamily">Color Family: <span>Black</span></p>
+        <div class="lick">
+            <i class="fa-regular fa-thumbs-up"></i>
+            <p>(28)</p>
+        </div>
+    </div>
+    <div class="ViewAll"><a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a></div>`
+    ProdactDetailsSection.appendChild(RatingsReviews);
+
+    const recommendation = document.createElement("div");
+    recommendation.className="recommendation";
+    recommendation.innerHTML=`
+    <div class="section-title">
+        <h2>You may also like</h2>
+    </div>
+    <div class="recommendationprodact" ></div
+>
+    <div class="ViewAll">
+        <a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
+    </div>`
+    ProdactDetailsSection.appendChild(recommendation);
+    cartButton()
+}
 // Update cart summary
 function updateCartSummary() {
     const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -555,8 +846,10 @@ function setupEventListeners() {
 }
 
 
-
-
+const addAddress = document.querySelector(".add-Address");
+addAddress.addEventListener("click",()=>{
+    
+})
 // Open auth modal
 function openAuthModal(type) {
     authModal.classList.add('active');
