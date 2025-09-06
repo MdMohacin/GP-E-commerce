@@ -114,13 +114,13 @@ newsletterForm.addEventListener('submit', (e) => {
 
 const cartToggle = document.getElementById('cart-toggle');
 const cartSidebar = document.getElementById('cart-sidebar');
-cartToggle.addEventListener('click', function() {
-    cartSidebarActive()
-});
+// cartToggle.addEventListener('click', function() {
+//     openPopup()
+// });
 
-function cartSidebarActive(){
-    cartSidebar.classList.add('active');
-}
+// function cartSidebarActive(){
+//     openPopup()
+// }
 
 
 // Sample product data
@@ -256,6 +256,99 @@ const products = [
         image: "https://images.unsplash.com/photo-1504274066651-8d31a536b11a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1935&q=80"
     }
 ];
+
+const data = {
+    Bangladesh: {
+    "ঢাকা": {
+        "ঢাকা জেলা": ["সাভার", "ধামরাই", "কেরাণীগঞ্জ","নবাবগঞ্জ", "দোহার"],
+        "নরসিংদী জেলা": ["বেলাবো", "মনোহরদী", "পলাশ","রায়পুরা", "শিবপুর", "নরসিংদী "],
+        "নারায়ণগঞ্জ জেলা": ["আড়াইহাজার", "বন্দর", "নারায়ণগঞ্জ সদর", "রূপগঞ্জ", "সোনারগাঁ"],
+        "গাজীপুর জেলা": ["কালীগঞ্জ", "কালিয়াকৈর", "কাপাসিয়া", "গাজীপুর সদর", "শ্রীপুর"],
+        "শরীয়তপুর জেলা": ["শরিয়তপুর সদর", "নড়িয়া", "জাজিরা", "গোসাইরহাট", "ভেদরগঞ্জ", "ডামুড্যা"],
+        "টাঙ্গাইল জেলা": ["বাসাইল", "ভুয়াপুর", "দেলদুয়ার","ঘাটাইল", "গোপালপুর", "মধুপুর","মির্জাপুর", "নাগরপুর", "সখিপুর","টাঙ্গাইল সদর", "কালিহাতী", "ধনবাড়ী"],            
+        "কিশোরগঞ্জ জেলা": ["ইটনা", "কটিয়াদী", "ভৈরব","সাভার", "তাড়াইল", "হোসেনপুর","পাকুন্দিয়া", "কুলিয়ারচর", "কিশোরগঞ্জ সদর","করিমগঞ্জ", "বাজিতপুর", "অষ্টগ্রাম", "মিঠামইন", "নিকলী"],          
+        "মানিকগঞ্জ জেলা": ["মানিকগঞ্জ সদর", "ঘিওর", "শিবালয়","দৌলতপুর","সিংগাইর"],          
+        "মুন্সিগঞ্জ জেলা": ["মুন্সিগঞ্জ সদর", "শ্রীনগর", "সিরাজদিখান","লৌহজং","গজারিয়া","টংগীবাড়ি"],          
+        "রাজবাড়ী জেলা": ["রাজবাড়ী সদর", "গোয়ালন্দ", "পাংশা","বালিয়াকান্দি","কালুখালী", "মাদারীপুর সদর", "শিবচর", "কালকিনি","রাজৈর","ডাসার"],          
+        "গোপালগঞ্জ জেলা": ["গোপালগঞ্জ সদর", "কাশিয়ানী", "টুংগীপাড়া","কোটালীপাড়া","মুকসুদপুর"],          
+        "ফরিদপুর জেলা": ["ফরিদপুর সদর", "আলফাডাঙ্গা", "বোয়ালমারী","সদরপুর","নগরকান্দা","ভাঙ্গা","চরভদ্রাসন","মধুখালী","সালথা"],        
+    },
+    "চট্টগ্রাম": {
+        "চট্টগ্রাম জেলা": ["রাঙ্গুনিয়া", "সীতাকুন্ড", "মীরসরাই","পটিয়া","সন্দ্বীপ","বাঁশখালী","বোয়ালখালী","আনোয়ারা","চন্দনাইশ","সাতকানিয়া","লোহাগাড়া","হাটহাজারী","ফটিকছড়ি","রাউজান","কর্ণফুলী"],                    
+        "কুমিল্লা জেলা": ["দ্বার", "বরুড়া", "ব্রাহ্মণপাড়া","চান্দিনা","চৌদ্দগ্রাম","দাউদকান্দি","হোমনা","লাকসাম","মুরাদনগর","নাঙ্গলকোট","কুমিল্লা সদর","মেঘনা","মনোহরগঞ্জ","সদর দক্ষিণ","তিতাস","বুড়িচং","লালমাই"],          
+        "ফেনী জেলা": ["গলনাইয়া", "ফেনী সদর", "সোনাগাজী","ফুলগাজী","পরশুরাম","দাগনভূঞা"],          
+        "ব্রাহ্মণবাড়িয়া জেলা": ["রাহ্মণবাড়িয়া সদর", "কসবা", "নাসিরনগর","সরাইল","আশুগঞ্জ","আখাউড়া","নবীনগর","বাঞ্ছারামপুর","বিজয়নগর"],          
+        "রাঙ্গামাটি জেলা": ["ঙ্গামাটি সদর", "কাপ্তাই", "কাউখালী","বাঘাইছড়ি","বরকল","লংগদু","রাজস্থলী","বিলাইছড়ি","জুরাছড়ি","নানিয়ারচর"],          
+        "নোয়াখালী জেলা": ["য়াখালী সদর", "কোম্পানীগঞ্জ", "বেগমগঞ্জ","হাতিয়া","সুবর্ণচর","কবিরহাট","সেনবাগ","চাটখিল","সোনাইমুড়ী"],          
+        "চাঁদপুর জেলা": ["ইমচর", "কচুয়া", "শাহরাস্তি","চাঁদপুর সদর","মতলব দক্ষিণ","হাজীগঞ্জ","মতলব উত্তর","ফরিদগঞ্জ"],          
+        "লক্ষ্মীপুর জেলা": ["ক্ষ্মীপুর সদর", "কমলনগর", "রায়পুর","রামগতি","রামগঞ্জ"],          
+        "কক্সবাজার জেলা": ["ক্সবাজার সদর", "চকরিয়া", "কুতুবদিয়া","উখিয়া","মহেশখালী",'পেকুয়া',"রামু","টেকনাফ","ঈদগাঁও"],          
+        "খাগড়াছড়ি জেলা": ["গড়াছড়ি সদর", "দিঘীনালা", "পানছড়ি","লক্ষীছড়ি","মহালছড়ি","মানিকছড়ি","রামগড়","মাটিরাঙ্গা","গুইমারা"],        
+        "বান্দরবান জেলা": ["সুন্দরবান সদর", "আলীকদম", "নাইক্ষ্যংছড়ি","রোয়াংছড়ি","লামা","রুমা","থানচি"],          
+    },
+    "রাজশাহী": {
+        "সিরাজগঞ্জ জেলা": ["বেলকুচি", "চৌহালি", "কামারখন্দ","কাজীপুর","রায়গঞ্জ","শাহজাদপুর","সিরাজগঞ্জ সদর","তাড়াশ","উল্লাপাড়া"],          
+        "পাবনা জেলা": ["সুজানগর", "ঈশ্বরদী", "ভাঙ্গুড়া","পাবনা সদর","বেড়া","আটঘরিয়া","চাটমোহর","সাঁথিয়া","ফরিদপুর"],          
+        "বগুড়া জেলা": ["কাহালু", "বগুড়া সদর", "সারিয়াকান্দি","শাজাহানপুর","দুপচাচিঁয়া",'আদমদিঘি',"নন্দিগ্রাম","সোনাতলা","ধুনট","গাবতলী","শেরপুর","শিবগঞ্জ"],          
+        "রাজশাহী জেলা": ["পবা", "দুর্গাপুর", "মোহনপুর","চারঘাট","পুঠিয়া","বাঘা","গোদাগাড়ী","তানোর","বাগমারা"],          
+        "নাটোর জেলা": ["নাটোর সদর", "সিংড়া", "বড়াইগ্রাম","বাগাতিপাড়া","লালপুর","গুরুদাসপুর","নলডাঙ্গা"],          
+        "জয়পুরহাট জেলা": ["আক্কেলপুর", "কালাই", "ক্ষেতলাল","পাঁচবিবি","জয়পুরহাট সদর"],          
+        "চাঁপাইনবাবগঞ্জ জেলা": ["চাঁপাইনবাবগঞ্জ সদর", "গোমস্তাপুর", "নাচোল","ভোলাহাট","শিবগঞ্জ"],          
+        "নওগাঁ জেলা": ["মহাদেবপুর", "বদলগাছী", "পত্নিতলা","ধামইরহাট","নিয়ামতপুর","মান্দা","আত্রাই","নওগাঁ সদর","পোরশা","সাপাহার"],          
+    },
+    "খুলনা": {
+        "যশোর জেলা": ["মণিরামপুর", "অভয়নগর", "বাঘারপাড়া","চৌগাছা","ঝিকরগাছা","কেশবপুর","যশোর সদর","শার্শা"],          
+        "সাতক্ষীরা জেলা": ["আশাশুনি", "দেবহাটা", "কলারোয়া","সাতক্ষীরা সদর","শ্যামনগর","তালা","কালিগঞ্জ"],          
+        "মেহেরপুর জেলা": ["মুজিবনগর", "মেহেরপুর সদর", "গাংনী"],          
+        "নড়াইল জেলা": ["নড়াইল সদর", "লোহাগড়া", "কালিয়া"],          
+        "চুয়াডাঙ্গা জেলা": ["চুয়াডাঙ্গা সদর", "আলমডাঙ্গা", "দামুড়হুদা","জীবননগর"],          
+        "কুষ্টিয়া জেলা": ["কুষ্টিয়া সদর", "কুমারখালী", "খোকসা","মিরপুর","দৌলতপুর","ভেড়ামারা"],          
+        "মাগুরা জেলা": ["শালিখা", "শ্রীপুর", "মাগুরা সদর","মহম্মদপুর"],          
+        "খুলনা জেলা": ["পাইকগাছা", "ফুলতলা", "দিঘলিয়া","রূপসা","তেরখাদা","ডুমুরিয়া","বটিয়াঘাটা","দাকোপ","কয়রা"],
+        "বাগেরহাট জেলা": ["ফকিরহাট", "বাগেরহাট সদর", "মোল্লাহাট","শরণখোলা","মোড়েলগঞ্জ","কচুয়া","মোংলা","চিতলমারী"],          
+        "ঝিনাইদহ জেলা": ["ঝিনাইদহ সদর", "শৈলকুপা", "হরিণাকুন্ডু","কালীগঞ্জ","কোটচাঁদপুর","মহেশপুর"],          
+    },
+    "বরিশাল": {
+        "ঝালকাঠি জেলা": ["ঝালকাঠি সদর", "কাঠালিয়া", "নলছিটি","রাজাপুর"],          
+        "পটুয়াখালী জেলা": ["পটুয়াখালী সদর", "দুমকি", "দশমিনা","কলাপাড়া","মির্জাগঞ্জ","গলাচিপা","রাঙ্গাবালী"],          
+        "বরিশাল জেলা": ["পিরোজপুর সদর", "নাজিরপুর", "কাউখালী","জিয়ানগর","ভান্ডারিয়া","মঠবাড়ীয়া","নেছারাবাদ"],          
+        "ভোলা জেলা": ["বরিশাল সদর", "বাকেরগঞ্জ", "বাবুগঞ্জ","উজিরপুর","বানারীপাড়া","গৌরনদী","আগৈলঝাড়া","মেহেন্দিগঞ্জ","মুলাদী","হিজলা"],          
+        "বরগুনা জেলা": ["ভোলা সদর", "বোরহান উদ্দিন", "চরফ্যাশন","দৌলতখান","মনপুরা","তজুমদ্দিন","লালমোহন"],          
+        "পিরোজপুর জেলা": ["আমতলী", "বরগুনা সদর", "বেতাগী","বামনা","পাথরঘাটা","তালতলি"],
+    },
+    "সিলেট": {
+        "সিলেট জেলা": ["বালাগঞ্জ", "বিয়ানীবাজার", "মীরসরাই","বিশ্বনাথ","কোম্পানীগঞ্জ","ফেঞ্চুগঞ্জ","গোলাপগঞ্জ","গোয়াইনঘাট","জৈন্তাপুর","কানাইঘাট","সিলেট সদর","জকিগঞ্জ","জকিগঞ্জ","দক্ষিণ সুরমা","ওসমানী নগর"],          
+        "মৌলভীবাজার জেলা": ["বড়লেখা", "কমলগঞ্জ", "কুলাউড়া","মৌলভীবাজার সদর","রাজনগর","শ্রীমঙ্গল","জুড়ী"],          
+        "হবিগঞ্জ জেলা": ["নবীগঞ্জ", "বাহুবল", "আজমিরীগঞ্জ","বানিয়াচং","লাখাই","চুনারুঘাট","হবিগঞ্জ সদর",'মাধবপুর',"শায়েস্তাগঞ্জ"],      
+        "সুনামগঞ্জ জেলা": ["সুনামগঞ্জ সদর", "দক্ষিণ সুনামগঞ্জ", "বিশ্বম্ভরপুর","ছাতক","জগন্নাথপুর","দোয়ারাবাজার","তাহিরপুর","ধর্মপাশা","জামালগঞ্জ","শাল্লা","দিরাই","মধ্যনগর"],          
+    },
+
+    "রংপুর": {
+        "পঞ্চগড় জেলা": ["পঞ্চগড় সদর", "দেবীগঞ্জ", "বোদা","আটোয়ারী","তেতুলিয়া"],          
+        "দিনাজপুর জেলা": ["আদিতমারী", "বীরগঞ্জ", "ঘোড়াঘাট","বিরামপুর","পার্বতীপুর","বোচাগঞ্জ","কাহারোল","ফুলবাড়ী","দিনাজপুর সদর","হাকিমপুর","খানসামা","বিরল","চিরিরবন্দর"],          
+        "লালমনিরহাট জেলা": ["লালমনিরহাট সদর", "কালীগঞ্জ", "হাতীবান্ধা","পাটগ্রাম","আদিতমারী"],        
+        "নীলফামারী জেলা": ["সৈয়দপুর", "ডোমার", "ডিমলা","জলঢাকা","কিশোরগঞ্জ","নীলফামারী সদর"],          
+        "গাইবান্ধা জেলা": ["সাদুল্লাপুর", "গাইবান্ধা সদর", "পলাশবাড়ী","সাঘাটা","গোবিন্দগঞ্জ","সুন্দরগঞ্জ","ফুলছড়ি"],
+        "ঠাকুরগাঁও জেলা": ["ঠাকুরগাঁও সদর", "পীরগঞ্জ", "রাণীশংকৈল","হরিপুর","বালিয়াডাঙ্গী"],
+        "রংপুর জেলা": ["রংপুর সদর", "গংগাচড়া", "তারাগঞ্জ","বদরগঞ্জ","মিঠাপুকুর","পীরগঞ্জ","কাউনিয়া","পীরগাছা"],
+        "কুড়িগ্রাম জেলা": ["কুড়িগ্রাম সদর", "নাগেশ্বরী", "ভুরুঙ্গামারী","ফুলবাড়ী","রাজারহাট","উলিপুর","চিলমারী","রৌমারী","চর রাজিবপুর"],
+    },
+    "ময়মনসিংহ": {
+        "শেরপুর জেলা": ["শেরপুর সদর", "নালিতাবাড়ী", "শ্রীবরদী","নকলা","ঝিনাইগাতী"],
+        "ময়মনসিংহ জেলা": ["ফুলবাড়ীয়া", "ত্রিশাল", "ভালুকা","মুক্তাগাছা","ময়মনসিংহ সদর","ধোবাউড়া","ফুলপুর","হালুয়াঘাট","গৌরীপুর","গফরগাঁও","ঈশ্বরগঞ্জ","নান্দাইল","তারাকান্দা"],
+        "জামালপুর জেলা": ["জামালপুর সদর", "মেলান্দহ", "ইসলামপুর","দেওয়ানগঞ্জ","সরিষাবাড়ী","মাদারগঞ্জ","বকশীগঞ্জ"],
+        "নেত্রকোণা জেলা": ["বারহাট্টা", "দুর্গাপুর", "কেন্দুয়া","বারহাট্টা", "আটপাড়া", "মদন","খালিয়াজুরী", "কলমাকান্দা", "মোহনগঞ্জ","পূর্বধলা","নেত্রকোণা সদর"],
+    }
+    },
+    India: {
+    "দিল্লি": {
+        "নতুন দিল্লি": ["চানাক্যাপুরি", "কারোল বাগ"]
+    },
+    "মুম্বাই": {
+        "মুম্বাই শহরতলি": ["আন্ধেরি", "বান্দ্রা"]
+    }
+    }
+};
 
 // Cart functionality
 let cart = [];
@@ -597,8 +690,10 @@ function updateCartUI() {
 
 
 function viewProdactDetails(){
-    document.querySelector("#mainContainer").style.display="none";
-    document.querySelector(".ProdactDetailsSection").style.display="block";
+    goToPage('ProdactDetailsMainDiv')
+    console.log('img Click')
+    // document.querySelector("#mainContainer").style.display="none";
+    // document.querySelector(".ProdactDetailsSection").style.display="block";
     let ProdactDetailsSection = document.querySelector(".ProdactDetailsSection");
     ProdactDetailsSection.innerHTML="";
 
@@ -732,6 +827,8 @@ function viewProdactDetails(){
     </div>`
     ProdactDetailsSection.appendChild(recommendation);
     cartButton()
+    window.scrollTo(0,0)
+
 }
 // Update cart summary
 function updateCartSummary() {
@@ -797,13 +894,13 @@ function removeFromCart(productId) {
 // Setup event listeners
 function setupEventListeners() {
     // Cart toggle
-    cartToggle.addEventListener('click', function() {
-        cartSidebar.classList.add('active');
-    });
+    // cartToggle.addEventListener('click', function() {
+    //     cartSidebar.classList.add('active');
+    // });
     
-    closeCart.addEventListener('click', function() {
-        cartSidebar.classList.remove('active');
-    });
+    // closeCart.addEventListener('click', function() {
+    //     cartSidebar.classList.remove('active');
+    // });
     
     // Auth modal
     loginLink.addEventListener('click', function(e) {
@@ -822,13 +919,6 @@ function setupEventListeners() {
         openAuthModal('login');
     });
     
-    modalClose.addEventListener('click', function() {
-        authModal.classList.remove('active');
-    });
-    
-    cancelBtn.addEventListener('click', function() {
-        authModal.classList.remove('active');
-    });
     
     authForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -838,21 +928,15 @@ function setupEventListeners() {
     // Close modal when clicking outside
     authModal.addEventListener('click', function(e) {
         if (e.target === authModal) {
-            authModal.classList.remove('active');
+            closePopup('auth-modal')
         }
     });
     Wishlist()
 
 }
 
-
-const addAddress = document.querySelector(".add-Address");
-addAddress.addEventListener("click",()=>{
-    
-})
 // Open auth modal
 function openAuthModal(type) {
-    authModal.classList.add('active');
     
     if (type === 'login') {
         modalTitle.textContent = 'Login to Your Account';
@@ -874,7 +958,7 @@ function handleAuthSubmit() {
     if (authSubmit.textContent === 'Login') {
         // Simulate login
         showNotification('Login successful!');
-        authModal.classList.remove('active');
+        closePopup('auth-modal')
         // Update UI to show logged in state
         document.getElementById('account-link').innerHTML = `
             <i class="fas fa-user"></i>
@@ -883,7 +967,7 @@ function handleAuthSubmit() {
     } else {
         // Simulate registration
         showNotification('Registration successful!');
-        authModal.classList.remove('active');
+        closePopup('auth-modal')
         // Update UI to show logged in state
         document.getElementById('account-link').innerHTML = `
             <i class="fas fa-user"></i>
@@ -972,6 +1056,385 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+const countrySelect = document.getElementById('country');
+const citySelect = document.getElementById('city');
+const districtSelect = document.getElementById('district');
+const upazilaSelect = document.getElementById('upazila');
+const addAddressButton = document.querySelector('.add-Address');
+const addAddressDiv = document.getElementById('addAddress');
+
+addAddressButton.addEventListener("click", ()=>{
+    OpenAddressDiv()
+    // addAddressDiv.style.display="block";
+})
+// দেশ চেঞ্জ হলে সিটি লোড হবে
+countrySelect.addEventListener('change', function() {
+    const country = this.value;
+    citySelect.innerHTML = '<option value="">সিটি সিলেক্ট করুন</option>';
+    districtSelect.innerHTML = '<option value="">আগে সিটি সিলেক্ট করুন</option>';
+    upazilaSelect.innerHTML = '<option value="">আগে জেলা সিলেক্ট করুন</option>';
+    
+    if (country && data[country]) {
+    Object.keys(data[country]).forEach(city => {
+        citySelect.innerHTML += `<option value="${city}">${city}</option>`;
+    });
+    }
+});
+
+// সিটি চেঞ্জ হলে জেলা লোড হবে
+citySelect.addEventListener('change', function() {
+    const country = countrySelect.value;
+    const city = this.value;
+    districtSelect.innerHTML = '<option value="">জেলা সিলেক্ট করুন</option>';
+    upazilaSelect.innerHTML = '<option value="">আগে জেলা সিলেক্ট করুন</option>';
+    
+    if (city && data[country][city]) {
+    Object.keys(data[country][city]).forEach(district => {
+        districtSelect.innerHTML += `<option value="${district}">${district}</option>`;
+    });
+    }
+});
+
+// জেলা চেঞ্জ হলে উপজেলা লোড হবে
+districtSelect.addEventListener('change', function() {
+    const country = countrySelect.value;
+    const city = citySelect.value;
+    const district = this.value;
+    upazilaSelect.innerHTML = '<option value="">উপজেলা সিলেক্ট করুন</option>';
+    
+    if (district && data[country][city][district]) {
+    data[country][city][district].forEach(upazila => {
+        upazilaSelect.innerHTML += `<option value="${upazila}">${upazila}</option>`;
+    });
+    }
+});
+
+// ফর্ম সাবমিট করলে ঠিকানা দেখাবে
+document.getElementById('addressForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+
+
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const country = countrySelect.value;
+    const city = citySelect.value;
+    const district = districtSelect.value;
+    const upazila = upazilaSelect.value;
+    const village = document.getElementById('village').value;
+    
+    const addressDisplay = document.getElementById('addressDisplay');
+    const addressContent = document.getElementById('addressContent');
+    
+    addressContent.innerHTML = `
+    <p><strong>নাম:</strong> ${name}</p>
+    <p><strong>ফোন:</strong> ${phone}</p>
+    <p><strong></strong> ${country} / ${city} / ${district} / ${upazila} / ${village}</p>
+    `;
+    
+    addressDisplay.scrollIntoView({ behavior: 'smooth' });
+    addAddressDiv.style.display="none";
+});
+
+
+
+const PAGES = ['mainContainer', 'ProdactDetailsMainDiv'];
+let currentPage = null;
+
+// ---------- PAGE HANDLING ----------
+function showPage(pageId) {
+    PAGES.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.style.display = 'none';
+    });
+
+    const target = document.getElementById(pageId);
+    if (target) {
+        target.style.display = 'block';
+        currentPage = pageId;
+    } else {
+        const fallback = PAGES[0];
+        document.getElementById(fallback).style.display = 'block';
+        currentPage = fallback;
+    }
+}
+
+function goToPage(pageId) {
+    if (pageId === currentPage) return;
+    showPage(pageId);
+    history.pushState({ type: 'page', page: pageId }, '', '#' + pageId);
+}
+
+// ---------- POPUP HANDLING ----------
+function showPopup(popupId) {
+    // সব popup আগে hide করো
+    document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+    const popup = document.getElementById(popupId);
+    if (popup) {
+        popup.classList.add('active');
+        history.pushState({ type: 'popup', popupId }, '', '#' + popupId);
+    }
+}
+
+function hidePopup(popupId) {
+    const popup = document.getElementById(popupId);
+    if (popup) {
+        popup.classList.remove('active');
+    }
+}
+
+function closePopup(popupId) {
+    console.log(popupId)
+    console.log("closs")
+    hidePopup(popupId);
+    history.back(); // আগের state এ ফিরে যাবে
+}
+
+// ---------- HISTORY HANDLER ----------
+function handlePopState(event) {
+    if (!event.state) {
+        // যদি কোনো state না থাকে → প্রথম পেজ দেখাও + সব popup বন্ধ করো
+        showPage(PAGES[0]);
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+        return;
+    }
+
+    if (event.state.type === 'page') {
+        showPage(event.state.page);
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+    } else if (event.state.type === 'popup') {
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+        const popup = document.getElementById(event.state.popupId);
+        if (popup) popup.classList.add('active');
+    }
+}
+
+// ---------- INIT ----------
+function initRouter() {
+    let initialState = null;
+
+    // যদি hash থাকে তাহলে সেটা থেকে restore করো
+    if (location.hash) {
+        const id = location.hash.slice(1);
+
+        if (PAGES.includes(id)) {
+            showPage(id);
+            initialState = { type: 'page', page: id };
+        } else {
+            const popup = document.getElementById(id);
+            if (popup && popup.classList.contains('popup')) {
+                showPage(PAGES[0]); // popup সবসময় কোনো একটা page এর উপর খোলে
+                popup.classList.add('active');
+                initialState = { type: 'popup', popupId: id };
+            } else {
+                showPage(PAGES[0]);
+                initialState = { type: 'page', page: PAGES[0] };
+            }
+        }
+    } else {
+        showPage(PAGES[0]);
+        initialState = { type: 'page', page: PAGES[0] };
+    }
+
+    history.replaceState(initialState, '', location.hash || '#' + PAGES[0]);
+    window.addEventListener('popstate', handlePopState);
+}
+
+document.addEventListener('DOMContentLoaded', initRouter);
+
+
+
+
+
+
+
+
+
+
+
+// const PAGES = [ 'mainContainer', 'ProdactDetailsMainDiv' ];
+// let currentPage = null; 
+//  // ✅ ADD THIS
+
+// function showPage(pageId){
+//     PAGES.forEach(id => {
+//         const el = document.getElementById(id);
+//         if(!el) return;
+//         el.style.display = 'none';
+//     });
+
+//     const target = document.getElementById(pageId);
+//     if(target){
+//         target.style.display = 'block';
+//         currentPage = pageId;
+//     }
+//     else{
+//         const fallback = PAGES[0]; // ✅ এখানে [0] এর বদলে PAGES[0]
+//         document.getElementById(fallback).style.display = 'block';
+//         currentPage = fallback;
+//     }
+// }
+
+// function goToPage(pageId) {
+//     if(pageId === currentPage) return;
+//     showPage(pageId);
+
+//     history.pushState({ type: 'page', page: pageId }, '', '#' + pageId); // ✅ এখানে type: 'page'
+// }
+
+// function handlePopState(event){
+//     if(!event.state) {
+//         hidePopup();
+//         return;
+//     }
+
+//     if(event.state.type === 'page'){
+//         showPage(event.state.page);
+//         hidePopup();
+//     } 
+//     else if(event.state.type === 'popup'){
+//         showPopup();
+//     }
+// }
+
+// function initRouter() {
+//     const firstPage = location.hash ? location.hash.slice(1) : PAGES[0];
+//     showPage(firstPage);
+//     history.replaceState({ type: 'page', page: firstPage }, '', '#' + firstPage);
+//     window.addEventListener('popstate',handlePopState);
+// }
+
+// function showPopup(popupId){
+//     const popup = document.getElementById(popupId);
+//     if(popup){
+//         popup.classList.add('active');
+//         history.pushState({type: 'popup', popupId}, '', '#'+popupId);
+//     }
+// }
+
+// function hidePopup(popupId){
+//     const popup = document.getElementById(popupId);
+//     if(popup){
+//         popup.classList.remove('active');
+//     }
+// }
+
+// function handlePopState(event){
+//     if(!event.state) {
+//         document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+//         return;
+//     }
+
+//     if(event.state.type === 'page'){
+//         showPage(event.state.page);
+//         document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+//     } 
+//     else if(event.state.type === 'popup'){
+//         document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+//         showPopup(event.state.popupId);
+//     }
+// }
+
+// function closePopup(popupId){
+//     hidePopup(popupId);
+//     history.back();
+// }
+
+
+
+// document.addEventListener('DOMContentLoaded', initRouter);
+
+
+
+// const PAGES = [ 'mainContainer', 'ProdactDetailsMainDiv' ];
+// let currentPage = null; 
+
+// function showPage(pageId){
+//     PAGES.forEach(id => {
+//         const el = document.getElementById(id);
+//         if(!el) return;
+//         console.log(el)
+//         el.style.display = 'none';
+//     });
+//     console.log(pageId)
+//     const target = document.getElementById(pageId);
+//     if(target){
+//         target.style.display = 'block';
+//         currentPage = pageId;
+//     }
+//     else{
+//         const fallback = [0];
+//         document.getElementById(fallback).style.display = 'block';
+//         currentPage = fallback;
+//     }
+// }
+
+// function goToPage(pageId) {
+//     if(pageId === currentPage) return;
+//     showPage(pageId);
+
+//     history.pushState({ page: pageId }, '', '#' + pageId);
+// }
+
+// function handlePopState(event){
+//     const pageFromState = event.state && event.state.page;
+
+//     if(!event)return;
+//     if(event.state.type === 'page'){
+//         showPage(event.state.page);
+//     }else if(event.state.type === 'popup'){
+//         showPopup();
+//     }
+//     // const pageToShow =
+//     //     pageFromState ||
+//     //     (location.hash ? location.hash.slice(1) : PAGES[0]);
+//     // showPage(pageToShow);
+// }
+
+// function initRouter() {
+//     const firstPage = location.hash ? location.hash.slice(1) : PAGES[0];
+//     showPage(firstPage);
+//     history.replaceState({ page: firstPage }, '', '#' + firstPage);
+//     window.addEventListener('popstate',handlePopState);
+// }
+
+// function showPopup(){
+//     cartSidebar.style.display = 'block';
+// }
+
+// function hidenPopup(){
+//     cartSidebar.style.display = 'none';
+// }
+// function openPopup(){
+//     showPopup();
+//     history.pushState({type: 'popup'}, '', '#popup');
+// }
+
+// function closePopup(){
+//     hidenPopup();
+//     history.back();
+// }
+
+
+// document.addEventListener('DOMContentLoaded', initRouter)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Initialize the app
 init();

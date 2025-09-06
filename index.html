@@ -7,8 +7,9 @@
     <title>ShopSphere - Online Shopping</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=favorite" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=favorite" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
 </head>
@@ -29,7 +30,7 @@
                 </div>
 
                 <div class="header-actions">
-                    <div class="header-action" id="account-link">
+                    <div class="header-action" onclick="showPopup('auth-modal')" id="account-link">
                         <i class="fas fa-user"></i>
                         <span>Account</span>
                     </div>
@@ -39,7 +40,7 @@
                         <span>Offers</span>
                     </div>
 
-                    <div class="header-action" id="cart-toggle" style="position: relative;">
+                    <div class="header-action" id="cart-toggle" onclick="showPopup('cart-sidebar')" style="position: relative;">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Cart</span>
                         <div class="cart-count">0</div>
@@ -53,9 +54,9 @@
                 </div>
 
                 <nav class="nav-categories">
+                    <a href="#" onclick="goToPage('mainContainer')" ><i class="fas fa-home"></i> Home & Kitchen</a>
                     <a href="#"><i class="fas fa-mobile-alt"></i> Electronics</a>
                     <a href="#"><i class="fas fa-tshirt"></i> Fashion</a>
-                    <a href="#"><i class="fas fa-home"></i> Home & Kitchen</a>
                     <a href="#"><i class="fas fa-gem"></i> Beauty</a>
                     <a href="#"><i class="fas fa-book"></i> Books</a>
                     <a href="#"><i class="fas fa-gamepad"></i> Toys & Games</a>
@@ -220,7 +221,7 @@
         </div>
     </main>
 
-    <div class="ProdactDetailsSection" style="display: none;">
+    <div class="ProdactDetailsSection" id="ProdactDetailsMainDiv" style="display: none;">
         <p>Tools & Home Improvement›Kitchen & Bath Fixtures›Kitchen Fixtures›Kitchen Sink Accessories›Drains & Strainers
         </p>
         <div class="ProdactDetails">
@@ -433,14 +434,14 @@
     </footer>
 
 
-    <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-sidebar popup" id="cart-sidebar">
         <div class="cart-header">
             <h2>Your Shopping Cart</h2>
-            <button class="close-cart" id="close-cart">
+            <button class="close-cart" onclick="closePopup('cart-sidebar')" id="close-cart">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <div class="add-Address">
+        <div class="add-Address" onclick="showPopup('addAddress')">
             <i class="fas fa-location"></i>
             <h3>Add Your Address</h3>
         </div>
@@ -448,113 +449,125 @@
             <div class="cart-item">
             </div>
         </div>
+            <div id="addressDisplay">
+                <h3>আপনার ঠিকানা:</h3>
+                <div id="addressContent">
+                    <p class="No-Address">No Address</p>
+                </div>
+            </div>
         <div class="cart-summary" id="cart-summary">
+
             <div class="summary-row">
                 <span>Subtotal</span>
-                <span>BT 00</span>
+                <span>BDT 00</span>
             </div>
             <div class="summary-row">
                 <span>Shipping</span>
-                <span>BT 00</span>
+                <span>BDT 00</span>
             </div>
             <div class="summary-row">
                 <span>Tax</span>
-                <span>BT 00</span>
+                <span>BDT 00</span>
             </div>
             <div class="summary-row total">
                 <span>Total</span>
-                <span>BT 00</span>
+                <span>BDT 00</span>
             </div>
-            <button class="checkout-btn">Proceed to Checkout</button>
+            <button class="checkout-btn">Confirm</button>
         </div>
-        <div class="container mx-auto px-4 py-8 max-w-4xl" style="display: none;">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white">
+    </div>
+    <div id="addAddress" class="container popup">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white" style="display: flex; justify-content: space-between;">
+                <div>
                     <h1 class="text-2xl font-bold">আপনার ঠিকানা দিন</h1>
                     <p class="text-blue-100 mt-1">আমরা আপনার ঠিকানা সংরক্ষণ করবো</p>
                 </div>
+                <button class="close-cart" onclick="closePopup('addAddress')" id="close-cart" style="margin-top: -45px;">
+                    <i class="fas fa-times"></i>
+            </button>
+            </div>
 
-                <div class="p-6">
-                    <form id="addressForm" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">নাম <span
-                                        class="text-red-500">*</span></label>
-                                <input type="text" id="name" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200">
-                            </div>
-
-                            <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">ফোন নাম্বার
-                                    <span class="text-red-500">*</span></label>
-                                <input type="tel" id="phone" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="country" class="block text-sm font-medium text-gray-700 mb-1">দেশ <span
-                                        class="text-red-500">*</span></label>
-                                <select id="country" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white transition duration-200">
-                                    <option value="">দেশ সিলেক্ট করুন</option>
-                                    <option value="Bangladesh">বাংলাদেশ</option>
-                                    <option value="India">ভারত</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label for="city" class="block text-sm font-medium text-gray-700 mb-1">সিটি <span
-                                        class="text-red-500">*</span></label>
-                                <select id="city" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white transition duration-200">
-                                    <option value="">আগে দেশ সিলেক্ট করুন</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="district" class="block text-sm font-medium text-gray-700 mb-1">জেলা <span
-                                        class="text-red-500">*</span></label>
-                                <select id="district" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white transition duration-200">
-                                    <option value="">আগে সিটি সিলেক্ট করুন</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label for="upazila" class="block text-sm font-medium text-gray-700 mb-1">উপজেলা <span
-                                        class="text-red-500">*</span></label>
-                                <select id="upazila" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white transition duration-200">
-                                    <option value="">আগে জেলা সিলেক্ট করুন</option>
-                                </select>
-                            </div>
+            <div class="p-6">
+                <form id="addressForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">নাম <span
+                                    class="text-red-500">*</span></label>
+                            <input type="text" id="name" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200">
                         </div>
 
                         <div>
-                            <label for="village" class="block text-sm font-medium text-gray-700 mb-1">গ্রাম <span class="text-red-500">*</span></label>
-                            <input type="text" id="village" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200">
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">ফোন নাম্বার
+                                <span class="text-red-500">*</span></label>
+                            <input type="tel" id="phone" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="country" class="block text-sm font-medium text-gray-700 mb-1">দেশ <span
+                                    class="text-red-500">*</span></label>
+                            <select id="country" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white transition duration-200">
+                                <option value="">দেশ সিলেক্ট করুন</option>
+                                <option value="Bangladesh">বাংলাদেশ</option>
+                                <option value="India">ভারত</option>
+                            </select>
                         </div>
 
-                        <div class="pt-4">
-                            <button type="submit"
-                                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-200 flex items-center">
-                                <i class="fas fa-save mr-2"></i>
-                                সেভ করুন
-                            </button>
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-gray-700 mb-1">সিটি <span
+                                    class="text-red-500">*</span></label>
+                            <select id="city" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white transition duration-200">
+                                <option value="">আগে দেশ সিলেক্ট করুন</option>
+                            </select>
                         </div>
-                    </form>
-                </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="district" class="block text-sm font-medium text-gray-700 mb-1">জেলা <span
+                                    class="text-red-500">*</span></label>
+                            <select id="district" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white transition duration-200">
+                                <option value="">আগে সিটি সিলেক্ট করুন</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="upazila" class="block text-sm font-medium text-gray-700 mb-1">উপজেলা <span
+                                    class="text-red-500">*</span></label>
+                            <select id="upazila" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white transition duration-200">
+                                <option value="">আগে জেলা সিলেক্ট করুন</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="village" class="block text-sm font-medium text-gray-700 mb-1">গ্রাম <span class="text-red-500">*</span></label>
+                        <input type="text" id="village" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200">
+                    </div>
+
+                    <div class="pt-4" id="submitBtn">
+                        <button type="button" class="btn-secondary" onclick="closePopup('addAddress')">Cancel</button>
+                        <button type="submit"class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-200 flex items-center" >
+                            <i class="fas fa-save mr-2"></i>
+                            সেভ করুন
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     <!-- Login/Register Modal -->
-    <div class="modal" id="auth-modal">
+    <div class="modal popup" id="auth-modal">
         <div class="modal-content">
-            <button class="modal-close" id="modal-close">
+            <button class="modal-close" onclick="closePopup('auth-modal')" id="modal-close">
                 <i class="fas fa-times"></i>
             </button>
             <div class="modal-header">
@@ -574,7 +587,7 @@
                     <input type="text" class="form-control" id="name">
                 </div>
                 <div class="form-actions">
-                    <button type="button" class="btn-secondary" id="cancel-btn">Cancel</button>
+                    <button type="button" class="btn-secondary" onclick="closePopup('auth-modal')" id="cancel-btn">Cancel</button>
                     <button type="submit" class="btn-primary" id="auth-submit">Login</button>
                 </div>
             </form>
