@@ -1717,7 +1717,25 @@ footer {
     .header-action span {
         display: none;
     }
-
+    .shadow-lg {
+        width: 100%;
+        height: 85vh;
+    }
+    #submitBtn {
+        width: 100%;
+        display: block;
+        justify-content: space-between;
+        margin-top: 5px;
+    }
+    #submitBtn button {
+        width: 90%;
+        align-items: center;
+        justify-content: center;
+        margin: 3px 0px;
+    }
+    #submitBtn .btn-secondary{
+        display: none;
+    }
     .header-top {
         margin-bottom: 2px;
     }
