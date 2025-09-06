@@ -990,7 +990,10 @@ footer {
     display: flex;
     background-color: #fafafa;
 }
-.container.active{
+.addAddresscontainer{
+    display: none;
+}
+.addAddresscontainer.active{
     z-index: 999;
     position: fixed;
     display: flex;
